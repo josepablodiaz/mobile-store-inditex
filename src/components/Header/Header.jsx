@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import Cart from '../Cart/Cart.jsx';
 import './Header.css';
 
 const Header = () => {
@@ -73,6 +74,7 @@ const Header = () => {
             ))}
           </ol>
         </nav>
+        <Cart />
       </div>
     </header>
   );
