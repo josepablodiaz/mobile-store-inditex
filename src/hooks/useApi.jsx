@@ -14,32 +14,30 @@ const fetchWithError = async (url, options = {}) => {
 export const useApi = () => {
   const { getCache, setCache } = useCache();
 
-  /**
-   * Obtiene la lista de todos los productos
-   */
-  const getProducts = useCallback(async () => {
+  const getProducts = useCallback(async (signal = null) => {
     const cachedProducts = getCache(CACHE_KEYS.PRODUCTS);
     if (cachedProducts) {
       return cachedProducts;
     }
 
-    const products = await fetchWithError(`${API_BASE}/api/product`);
+    const products = await fetchWithError(`${API_BASE}/api/product`, {
+      signal,
+    });
     setCache(CACHE_KEYS.PRODUCTS, products);
     return products;
   }, [getCache, setCache]);
 
-  /**
-   * Obtiene los detalles de un producto específico
-   */
   const getProductById = useCallback(
-    async (id) => {
+    async (id, signal = null) => {
       const cacheKey = CACHE_KEYS.PRODUCT_DETAIL(id);
       const cachedProduct = getCache(cacheKey);
       if (cachedProduct) {
         return cachedProduct;
       }
 
-      const product = await fetchWithError(`${API_BASE}/api/product/${id}`);
+      const product = await fetchWithError(`${API_BASE}/api/product/${id}`, {
+        signal,
+      });
       setCache(cacheKey, product);
       return product;
     },

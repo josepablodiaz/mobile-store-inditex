@@ -30,7 +30,6 @@ const ProductActions = ({ product, options }) => {
   // Verificar si se puede añadir al carrito
   const canAddToCart = selectedColor !== null && selectedStorage !== null;
 
-  //  Añadir al carrito
   const handleAddToCart = async () => {
     if (!canAddToCart || isLoading) return;
 
@@ -38,8 +37,7 @@ const ProductActions = ({ product, options }) => {
     setMessage(null);
 
     try {
-      // Añadir al carrito (CartContext manejar estado y API)
-      addToCart(product, selectedColor, selectedStorage);
+      await addToCart(product, selectedColor, selectedStorage);
 
       setMessage({ type: 'success', text: 'Added to cart!' });
 
@@ -51,8 +49,10 @@ const ProductActions = ({ product, options }) => {
       console.error('Error adding to cart:', error);
       setMessage({
         type: 'error',
-        text: 'Error adding to cart. Please try again.',
+        text: error.message || 'Error adding to cart. Please try again.',
       });
+
+      setTimeout(() => setMessage(null), 5000);
     } finally {
       setIsLoading(false);
     }

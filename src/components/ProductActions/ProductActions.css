@@ -1,6 +1,6 @@
 .product-actions {
   padding-top: 2rem;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--color-border-medium);
 }
 
 .action-group {
@@ -11,7 +11,7 @@
   display: block;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -25,9 +25,9 @@
 
 .action-option {
   padding: 0.75rem 1.5rem;
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
-  color: #1a1a1a;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border-medium);
+  color: var(--color-text-primary);
   font-size: 0.8125rem;
   font-weight: 400;
   cursor: pointer;
@@ -37,13 +37,13 @@
 }
 
 .action-option:hover {
-  border-color: #000000;
+  border-color: var(--color-black);
 }
 
 .action-option.selected {
-  background-color: #000000;
-  border-color: #000000;
-  color: #ffffff;
+  background-color: var(--color-black);
+  border-color: var(--color-black);
+  color: var(--color-white);
   font-weight: 500;
 }
 
@@ -54,9 +54,9 @@
   gap: 0.75rem;
   width: 100%;
   padding: 1rem;
-  background-color: #000000;
-  border: 1px solid #000000;
-  color: #ffffff;
+  background-color: var(--color-black);
+  border: 1px solid var(--color-black);
+  color: var(--color-white);
   font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -68,8 +68,8 @@
 }
 
 .add-to-cart-button:hover:not(.disabled):not(.loading) {
-  background-color: #333333;
-  border-color: #333333;
+  background-color: var(--color-hover-dark);
+  border-color: var(--color-hover-dark);
 }
 
 .add-to-cart-button:active:not(.disabled):not(.loading) {
@@ -77,9 +77,9 @@
 }
 
 .add-to-cart-button.disabled {
-  background-color: #f5f5f5;
-  border-color: #e5e5e5;
-  color: #999999;
+  background-color: var(--color-border-light);
+  border-color: var(--color-border-medium);
+  color: var(--color-text-disabled);
   cursor: not-allowed;
 }
 
@@ -102,8 +102,8 @@
 .spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #ffffff;
+  border: 2px solid var(--color-spinner-border);
+  border-top-color: var(--color-white);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -133,13 +133,13 @@
 }
 
 .action-message.success {
-  color: #2e7d32;
-  background-color: #f1f8f1;
+  color: var(--color-success);
+  background-color: var(--color-success-bg);
 }
 
 .action-message.error {
-  color: #c62828;
-  background-color: #fdf2f2;
+  color: var(--color-error-dark);
+  background-color: var(--color-error-bg);
 }
 
 @media (max-width: 480px) {
