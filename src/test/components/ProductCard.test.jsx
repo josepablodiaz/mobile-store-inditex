@@ -16,7 +16,7 @@ describe('ProductCard', () => {
     imgUrl: 'https://example.com/image.jpg',
   };
 
-  it('should render product information correctly', () => {
+  it('muestra la información del producto', () => {
     renderWithRouter(<ProductCard product={mockProduct} />);
 
     expect(screen.getByText('TestBrand')).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe('ProductCard', () => {
     expect(screen.getByText('299€')).toBeInTheDocument();
   });
 
-  it('should render image with correct alt text', () => {
+  it('renderiza imagen con alt correcto', () => {
     renderWithRouter(<ProductCard product={mockProduct} />);
 
     const image = screen.getByAltText('TestBrand TestModel X');
@@ -32,14 +32,14 @@ describe('ProductCard', () => {
     expect(image).toHaveAttribute('src', 'https://example.com/image.jpg');
   });
 
-  it('should link to product detail page', () => {
+  it('enlaza a la página de detalle', () => {
     renderWithRouter(<ProductCard product={mockProduct} />);
 
     const link = screen.getByTestId('product-card');
     expect(link).toHaveAttribute('href', '/product/test-123');
   });
 
-  it('should show "Price not available" when price is empty', () => {
+  it('muestra "Price not available" si no hay precio', () => {
     const productWithoutPrice = { ...mockProduct, price: '' };
     renderWithRouter(<ProductCard product={productWithoutPrice} />);
 
