@@ -14,24 +14,37 @@ const ProductDetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Cargar detalles
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchProduct = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        const data = await getProductById(id);
-        setProduct(data);
+
+        const data = await getProductById(id, controller.signal);
+
+        if (!controller.signal.aborted) {
+          setProduct(data);
+        }
       } catch (err) {
-        console.error('Error fetching product:', err);
-        setError('Error loading product details. Please try again later.');
+        if (err.name !== 'AbortError' && !controller.signal.aborted) {
+          console.error('Error fetching product:', err);
+          setError('Error loading product details. Please try again later.');
+        }
       } finally {
-        setIsLoading(false);
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchProduct();
-  }, [id]);
+
+    return () => {
+      controller.abort();
+    };
+  }, [id, getProductById]);
 
   // Renderizar loading
   if (isLoading) {
