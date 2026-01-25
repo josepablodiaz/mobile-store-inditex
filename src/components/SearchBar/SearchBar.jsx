@@ -1,30 +1,31 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect } from 'react';
+import { useDebounce } from '../../hooks/useDebounce';
 import './SearchBar.css';
 
 /**
  * @param {object} props
- * @param {function} props.onSearch
+ * @param {function} props.onSearch 
  * @param {string} props.placeholder
  */
 const SearchBar = ({
   onSearch,
   placeholder = 'Search by brand or model...',
 }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
-  const handleChange = useCallback(
-    (e) => {
-      const value = e.target.value;
-      setSearchTerm(value);
-      onSearch(value);
-    },
-    [onSearch],
-  );
+  const debouncedValue = useDebounce(inputValue, 300);
 
-  const handleClear = useCallback(() => {
-    setSearchTerm('');
-    onSearch('');
-  }, [onSearch]);
+  useEffect(() => {
+    onSearch(debouncedValue);
+  }, [debouncedValue, onSearch]);
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleClear = () => {
+    setInputValue('');
+  };
 
   return (
     <div className="search-bar">
@@ -48,13 +49,13 @@ const SearchBar = ({
           type="text"
           className="search-input"
           placeholder={placeholder}
-          value={searchTerm}
+          value={inputValue}
           onChange={handleChange}
           aria-label="Search products"
           data-testid="search-input"
         />
 
-        {searchTerm && (
+        {inputValue && (
           <button
             className="search-clear"
             onClick={handleClear}

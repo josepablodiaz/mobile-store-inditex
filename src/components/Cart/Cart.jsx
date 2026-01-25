@@ -127,14 +127,6 @@ const Cart = () => {
                 <button
                   className="mobile-close-btn"
                   onClick={closeCart}
-                  style={{
-                    display: window.innerWidth <= 500 ? 'block' : 'none',
-                    background: 'none',
-                    border: 'none',
-                    fontSize: '1.5rem',
-                    padding: '0 0.5rem',
-                    cursor: 'pointer',
-                  }}
                 >
                   ×
                 </button>

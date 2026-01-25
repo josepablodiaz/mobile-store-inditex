@@ -1,5 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
+:root {
+  /* Colores de Texto */
+  --color-black: #000000;
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #86868b;
+  --color-text-quaternary: #888888;
+  --color-text-disabled: #999999;
+  --color-text-placeholder: #86868b;
+
+  /* Colores de Fondo */
+  --color-white: #ffffff;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f5f5f7;
+  --color-bg-tertiary: #f8f9fa;
+  --color-bg-quaternary: #fafafa;
+  --color-bg-hover: #e8e8ed;
+  --color-bg-glass: rgba(255, 255, 255, 0.8);
+  --color-bg-glass-strong: rgba(255, 255, 255, 0.9);
+
+  /* Grises para Bordes y Separadores */
+  --color-border-subtle: rgba(0, 0, 0, 0.04);
+  --color-border-light: #f5f5f5;
+  --color-border-medium: #e5e5e5;
+  --color-border-strong: #e0e0e0;
+  --color-border-dark: #d2d2d7;
+  --color-separator: #f0f0f0;
+  --color-separator-mobile: #eeeeee;
+
+  /* Grises para Botones y Componentes */
+  --color-gray-light: #c7c7cc;
+  --color-gray-medium: #8e8e93;
+  --color-gray-icon: #cccccc;
+
+  /* Colores de Estado - Hover y Active */
+  --color-hover-dark: #333333;
+  --color-hover-subtle: #f5f5f5;
+  --color-accent-orange: #bf4800;
+
+  /* Colores de Estado - Feedback */
+  --color-success: #2e7d32;
+  --color-success-bg: #f1f8f1;
+  --color-error: #d32f2f;
+  --color-error-dark: #c62828;
+  --color-error-light: #e53935;
+  --color-error-bg: #fdf2f2;
+
+  /* Colores con Transparencia - Sombras */
+  --shadow-subtle: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --shadow-strong: rgba(0, 0, 0, 0.15);
+
+  /* Colores con Transparencia - Focus y Efectos */
+  --color-focus-ring: rgba(0, 125, 250, 0.1);
+  --color-glow-purple: rgba(102, 126, 234, 0.08);
+  --color-spinner-border: rgba(255, 255, 255, 0.3);
+
+  /* Gradientes */
+  --gradient-bg: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
 *,
 *::before,
 *::after {
@@ -15,8 +76,8 @@ html {
 
 body {
   font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--color-bg-primary);
+  color: var(--color-black);
   line-height: 1.5;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -55,7 +116,7 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #000;
+  background: var(--color-black);
 }
 
 ::-webkit-scrollbar-track {

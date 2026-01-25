@@ -34,13 +34,9 @@ export const CartProvider = ({ children }) => {
 
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-  /**
-   * Añade un producto al carrito
-   * @param {object} product
-   * @param {string} selectedColor
-   * @param {string} selectedStorage
-   */
-  const addToCart = (product, selectedColor, selectedStorage) => {
+  const addToCart = async (product, selectedColor, selectedStorage) => {
+    const previousCartItems = [...cartItems];
+
     setCartItems((prevItems) => {
       // Buscar si ya existe el mismo producto con mismas opciones
       const existingIndex = prevItems.findIndex(
@@ -74,18 +70,19 @@ export const CartProvider = ({ children }) => {
       ];
     });
 
-    // Llamada a la API
-    apiAddToCart(product.id, selectedColor.code, selectedStorage.code).catch(
-      (err) => console.error('Error syncing with API cart:', err),
-    );
+    try {
+      await apiAddToCart(product.id, selectedColor.code, selectedStorage.code);
+
+      return { success: true };
+    } catch (error) {
+      setCartItems(previousCartItems);
+
+      console.error('Error syncing with API cart:', error);
+
+      throw new Error('Failed to add item to cart. Please try again.');
+    }
   };
 
-  /**
-   * Elimina un producto del carrito
-   * @param {string} itemId
-   * @param {number} colorCode
-   * @param {number} storageCode
-   */
   const removeFromCart = (itemId, colorCode, storageCode) => {
     setCartItems((prevItems) =>
       prevItems.filter(
@@ -99,13 +96,6 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  /**
-   * Actualiza la cantidad de un item
-   * @param {string} itemId
-   * @param {number} colorCode
-   * @param {number} storageCode
-   * @param {number} quantity
-   */
   const updateQuantity = (itemId, colorCode, storageCode, quantity) => {
     if (quantity <= 0) {
       removeFromCart(itemId, colorCode, storageCode);
@@ -115,24 +105,18 @@ export const CartProvider = ({ children }) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === itemId &&
-        item.colorCode === colorCode &&
-        item.storageCode === storageCode
+          item.colorCode === colorCode &&
+          item.storageCode === storageCode
           ? { ...item, quantity }
           : item,
       ),
     );
   };
 
-  /**
-   * Vacía el carrito
-   */
   const clearCart = () => {
     setCartItems([]);
   };
 
-  /**
-   * Calcula el total del carrito
-   */
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => {
       const price = parseFloat(item.price) || 0;

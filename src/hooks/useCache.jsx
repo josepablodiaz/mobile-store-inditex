@@ -3,9 +3,7 @@ import { useCallback } from 'react';
 const CACHE_DURATION = 60 * 60 * 1000;
 
 export const useCache = () => {
-  /**
-   * Guarda datos en el caché con timestamp
-   */
+
   const setCache = useCallback((key, data) => {
     try {
       const item = {
@@ -18,9 +16,6 @@ export const useCache = () => {
     }
   }, []);
 
-  /**
-   * Obtiene datos del caché si no han expirado
-   */
   const getCache = useCallback((key) => {
     try {
       const item = localStorage.getItem(key);
@@ -41,9 +36,7 @@ export const useCache = () => {
     }
   }, []);
 
-  /**
-   * Elimina un elemento específico del caché
-   */
+
   const removeCache = useCallback((key) => {
     try {
       localStorage.removeItem(key);
