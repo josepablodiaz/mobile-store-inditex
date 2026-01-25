@@ -11,24 +11,37 @@ const ProductListPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Cargar productos al montar el componente
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchProducts = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        const data = await getProducts();
-        setProducts(data);
+
+        const data = await getProducts(controller.signal);
+
+        if (!controller.signal.aborted) {
+          setProducts(data);
+        }
       } catch (err) {
-        console.error('Error fetching products:', err);
-        setError('Error loading products. Please try again later.');
+        if (err.name !== 'AbortError' && !controller.signal.aborted) {
+          console.error('Error fetching products:', err);
+          setError('Error loading products. Please try again later.');
+        }
       } finally {
-        setIsLoading(false);
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchProducts();
-  }, []);
+
+    return () => {
+      controller.abort();
+    };
+  }, [getProducts]);
 
   // Manejar búsqueda
   const handleSearch = useCallback((term) => {
